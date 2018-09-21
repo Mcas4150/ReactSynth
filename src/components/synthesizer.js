@@ -10,7 +10,8 @@ export default class Synthesizer extends Component {
       decay: 0.1,
       sustain: 0.1,
       release: 0.9,
-      playing: false
+      playing: false,
+      frequency: "C4"
     };
 
     this.envelope = new Tone.AmplitudeEnvelope({
@@ -21,19 +22,21 @@ export default class Synthesizer extends Component {
     }).toMaster();
 
     this.tone = new Tone.Oscillator({
-      frequency: 440,
+      frequency: this.state.frequency,
       type: "sine",
       volume: -6
     })
       .connect(this.envelope)
       .start();
 
+    this.handleNote = this.handleNote.bind(this);
     this.startNote = this.startNote.bind(this);
     this.stopNote = this.stopNote.bind(this);
     this.handleAttack = this.handleAttack.bind(this);
     this.handleDecay = this.handleDecay.bind(this);
     this.handleSustain = this.handleSustain.bind(this);
     this.handleRelease = this.handleRelease.bind(this);
+
     // this.handleRelease = this.handleRelease.bind(this);
 
     // const synth = new Tone.Synth().toMaster();
@@ -57,13 +60,18 @@ export default class Synthesizer extends Component {
     this.setState({ release: e.target.value });
   }
 
-  startNote(note) {
-    this.setState({ playing: note });
+  handleNote(e) {
+    // this.tone.frequency = e.target.value;
+    this.setState({ frequency: e.target.value });
+  }
+
+  startNote(e) {
+    // this.tone.frequency = e.target.value;
+    // this.setState({ frequency: e.target.value });
     this.envelope.triggerAttack();
   }
 
   stopNote() {
-    this.setState({ playing: false });
     this.envelope.triggerRelease();
   }
 
@@ -73,6 +81,7 @@ export default class Synthesizer extends Component {
         <button
           onMouseDown={this.startNote}
           onMouseUp={this.stopNote}
+          onClick={this.handleNote}
           value="C4"
         >
           C4
@@ -80,6 +89,7 @@ export default class Synthesizer extends Component {
         <button
           onMouseDown={this.startNote}
           onMouseUp={this.stopNote}
+          onClick={this.handleNote}
           value="D4"
         >
           D4
@@ -87,6 +97,7 @@ export default class Synthesizer extends Component {
         <button
           onMouseDown={this.startNote}
           onMouseUp={this.stopNote}
+          onClick={this.handleNote}
           value="E4"
         >
           E4
@@ -94,7 +105,7 @@ export default class Synthesizer extends Component {
         <h3>Attack</h3>
         <input
           type="range"
-          min="0.01"
+          min="0.1"
           max="1"
           value={this.state.attack}
           onChange={this.handleAttack}
@@ -133,7 +144,7 @@ export default class Synthesizer extends Component {
           onChange={this.handleRelease}
           class="slider"
           id="Release"
-          step="0.01"
+          step="0.1"
         />
       </div>
     );
