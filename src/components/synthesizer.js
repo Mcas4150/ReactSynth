@@ -109,7 +109,7 @@ export default class Synthesizer extends Component {
           max="1"
           value={this.state.attack}
           onChange={this.handleAttack}
-          class="slider"
+          className="slider"
           id="Attack"
           step="0.1"
         />
@@ -120,7 +120,7 @@ export default class Synthesizer extends Component {
           max="1"
           value={this.state.decay}
           onChange={this.handleDecay}
-          class="slider"
+          className="slider"
           id="Decay"
           step="0.1"
         />
@@ -131,7 +131,7 @@ export default class Synthesizer extends Component {
           max="1"
           value={this.state.sustain}
           onChange={this.handleSustain}
-          class="slider"
+          className="slider"
           id="Sustain"
           step="0.1"
         />
@@ -142,7 +142,7 @@ export default class Synthesizer extends Component {
           max="1"
           value={this.state.release}
           onChange={this.handleRelease}
-          class="slider"
+          className="slider"
           id="Release"
           step="0.1"
         />
