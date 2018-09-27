@@ -1,0 +1,14 @@
+.adsr {
+  background-color: lightgoldenrodyellow;
+  border-radius: 5px;
+}
+
+.pingpong {
+  background-color: lightpink;
+  border-radius: 5px;
+}
+
+.reverb {
+  background-color: lightblue;
+  border-radius: 5px;
+}
