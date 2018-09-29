@@ -1,0 +1,55 @@
+.keyboard {
+  height: 300px;
+  margin: 0 auto;
+  display: flex;
+  position: relative;
+  background-color: black;
+}
+
+.keyboard__key {
+  cursor: pointer;
+  border: 1px solid black;
+  width: 50px;
+  position: relative;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.keyboard__key--major {
+  background-color: #ede5d4;
+}
+
+.keyboard__key--major:active {
+  box-shadow: inset 1px 14px 34px -9px rgba(0, 0, 0, 1);
+  top: 5px;
+}
+
+.keyboard__key--minor {
+  background-color: black;
+  width: 30px;
+  height: 175px;
+  display: block;
+  margin-left: -16px;
+  margin-right: -16px;
+  z-index: 100;
+  position: relative;
+}
+
+.keyboard__key--minor:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 3px;
+  right: 3px;
+  bottom: 20px;
+  border: 1px solid rgba(128, 128, 128, 0.4);
+  border-top: 0;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.keyboard__key--minor:active {
+  box-shadow: inset 1px 14px 34px -9px rgba(0, 0, 0, 1);
+}
+
+.keyboard__key--minor:active:before {
+  bottom: 15px;
+}

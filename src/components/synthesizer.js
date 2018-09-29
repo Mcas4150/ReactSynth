@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Tone from "tone";
+import Keyboard from "./keyboard";
 import "./synthesizer.css";
 // import Envelopes from "./envelopes";
 
@@ -12,11 +13,14 @@ export default class Synthesizer extends Component {
       sustain: 0.1,
       release: 0.9,
       playing: false,
-      frequency: "C5",
+      frequency: "C3",
       delayTime: "16n",
       feedback: 0.2,
       roomSize: 0.9,
-      dampening: 3000
+      dampening: 3000,
+      lfoRate: "4n",
+      lfoMin: 400,
+      lfoMax: 600
     };
 
     this.freeverb = new Tone.Freeverb({
@@ -38,11 +42,17 @@ export default class Synthesizer extends Component {
 
     this.tone = new Tone.Oscillator({
       frequency: this.state.frequency,
-      type: "square",
+      type: "sine",
       volume: -6
     })
       .connect(this.envelope)
       .start();
+
+    this.lfo = new Tone.LFO({
+      frequency: "4n",
+      min: 400,
+      max: this.state.lfoMax
+    }).connect(this.tone.frequency);
 
     this.handleNote = this.handleNote.bind(this);
     this.startNote = this.startNote.bind(this);
@@ -60,6 +70,16 @@ export default class Synthesizer extends Component {
 
     // const synth = new Tone.Synth().toMaster();
   }
+
+  // componentWillMount() {
+  //   document.addEventListener("keydown", this.onKeyDown);
+  //   document.addEventListener("keyup", this.handleRelease);
+  // }
+
+  // componentWillUnmount() {
+  //   document.removeEventListener("keydown", this.onKeyDown);
+  //   document.removeEventListener("keyup", this.handleRelease);
+  // }
 
   handleAttack(e) {
     this.envelope.attack = e.target.value;
@@ -104,140 +124,128 @@ export default class Synthesizer extends Component {
     this.setState({ frequency: e.target.value });
   }
 
-  startNote(e) {
+  startNote(note) {
     // this.tone.frequency = e.target.value;
     // this.setState({ frequency: e.target.value });
-    this.setState({ frequency: e.target.value });
+    this.setState({ playing: true, frequency: note });
     this.envelope.triggerAttack();
   }
 
   stopNote() {
+    this.setState({ playing: false });
     this.envelope.triggerRelease();
   }
 
   render() {
     return (
-      <div className="container">
-        <button
-          onMouseDown={this.startNote}
-          onMouseUp={this.stopNote}
-          onClick={this.handleNote}
-          value="C4"
-        >
-          C4
-        </button>
-        <button
-          onMouseDown={this.startNote}
-          onMouseUp={this.stopNote}
-          onClick={this.handleNote}
-          value="D4"
-        >
-          D4
-        </button>
-        <button
-          onMouseDown={this.startNote}
-          onMouseUp={this.stopNote}
-          onClick={this.handleNote}
-          value="E4"
-        >
-          E4
-        </button>
-        <div className="adsr row">
-          <div className="attack col-sm-6 col-md-3">
-            <h3>Attack</h3>
-            <input
-              type="range"
-              min="0.1"
-              max="1"
-              value={this.state.attack}
-              onChange={this.handleAttack}
-              className="slider"
-              id="Attack"
-              step="0.1"
-            />
+      <div className="synthesizer">
+        <div className="container">
+          <div className="row">
+            <div className="envelopes col-sm-12 col-md-6">
+              <div className="row">
+                <div className="attack col-sm-6 col-md-3">
+                  <h3>Attack</h3>
+                  <input
+                    type="range"
+                    min="0.1"
+                    max="1"
+                    value={this.state.attack}
+                    onChange={this.handleAttack}
+                    className="slider"
+                    id="Attack"
+                    step="0.1"
+                  />
+                </div>
+                <div className="decay col-sm-6 col-md-3">
+                  <h3>Decay</h3>
+                  <input
+                    type="range"
+                    min="0.1"
+                    max="1"
+                    value={this.state.decay}
+                    onChange={this.handleDecay}
+                    className="slider"
+                    id="Decay"
+                    step="0.1"
+                  />
+                </div>
+                <div className="sustain col-sm-6 col-md-3">
+                  <h3>Sustain</h3>
+                  <input
+                    type="range"
+                    min="0.1"
+                    max="1"
+                    value={this.state.sustain}
+                    onChange={this.handleSustain}
+                    className="slider"
+                    id="Sustain"
+                    step="0.1"
+                  />
+                </div>
+                <div className="release col-sm-6 col-md-3">
+                  <h3>Release</h3>
+                  <input
+                    type="range"
+                    min="0.1"
+                    max="1"
+                    value={this.state.release}
+                    onChange={this.handleRelease}
+                    className="slider"
+                    id="Release"
+                    step="0.1"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="pingpong col-sm-12 col-md-3">
+              <h3>Feedback</h3>
+              <input
+                type="range"
+                min="0.1"
+                max="1"
+                value={this.state.feedback}
+                onChange={this.handleFeedback}
+                className="slider"
+                id="Feedback"
+                step="0.1"
+              />
+              <h3>Delay Time</h3>
+              <select onChange={this.handleDelay}>
+                <option value="32n">32n</option>
+                <option value="16n">16n</option>
+                <option value="8n">8n</option>
+                <option value="4n">4n</option>
+              </select>
+            </div>
+            <div className="reverb col-sm-12 col-md-3">
+              <h3>RoomSize</h3>
+              <input
+                type="range"
+                min="0.1"
+                max="1"
+                value={this.state.roomSize}
+                onChange={this.handleRoomSize}
+                className="slider"
+                id="roomSize"
+                step="0.1"
+              />
+              <h3>Dampening</h3>
+              <input
+                type="range"
+                min="1"
+                max="5000"
+                value={this.state.dampening}
+                onChange={this.handleDampening}
+                className="slider"
+                id="dampening"
+                step="100"
+              />
+            </div>
           </div>
-          <div className="decay col-sm-6 col-md-3">
-            <h3>Decay</h3>
-            <input
-              type="range"
-              min="0.1"
-              max="1"
-              value={this.state.decay}
-              onChange={this.handleDecay}
-              className="slider"
-              id="Decay"
-              step="0.1"
-            />
-          </div>
-          <div className="sustain col-sm-6 col-md-3">
-            <h3>Sustain</h3>
-            <input
-              type="range"
-              min="0.1"
-              max="1"
-              value={this.state.sustain}
-              onChange={this.handleSustain}
-              className="slider"
-              id="Sustain"
-              step="0.1"
-            />
-          </div>
-          <div className="release col-sm-6 col-md-3">
-            <h3>Release</h3>
-            <input
-              type="range"
-              min="0.1"
-              max="1"
-              value={this.state.release}
-              onChange={this.handleRelease}
-              className="slider"
-              id="Release"
-              step="0.1"
-            />
-          </div>
-        </div>
-        <div className="pingpong">
-          <h3>Feedback</h3>
-          <input
-            type="range"
-            min="0.1"
-            max="1"
-            value={this.state.feedback}
-            onChange={this.handleFeedback}
-            className="slider"
-            id="Feedback"
-            step="0.1"
-          />
-          <h3>Delay Time</h3>
-          <select onChange={this.handleDelay}>
-            <option value="32n">32n</option>
-            <option value="16n">16n</option>
-            <option value="8n">8n</option>
-            <option value="4n">4n</option>
-          </select>
-        </div>
-        <div className="reverb">
-          <h3>RoomSize</h3>
-          <input
-            type="range"
-            min="0.1"
-            max="1"
-            value={this.state.roomSize}
-            onChange={this.handleRoomSize}
-            className="slider"
-            id="roomSize"
-            step="0.1"
-          />
-          <h3>Dampening</h3>
-          <input
-            type="range"
-            min="1"
-            max="5000"
-            value={this.state.dampening}
-            onChange={this.handleDampening}
-            className="slider"
-            id="dampening"
-            step="100"
+          <Keyboard
+            onDown={this.startNote}
+            onUp={this.stopNote}
+            onKeyDown={this.startNote}
           />
         </div>
       </div>
