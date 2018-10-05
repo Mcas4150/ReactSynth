@@ -1,7 +1,9 @@
 import {
   CHANGE_DIAL,
   CHANGE_WAVEFORM,
-  CHANGE_FILTER_TYPE
+  CHANGE_FILTER_TYPE,
+  SAW_START,
+  TRIGGER_MASTER
 } from "../actions/action-types";
 
 import * as dotProp from "dot-prop-immutable";
@@ -35,6 +37,14 @@ const rootReducer = (state = initialState, action) => {
       synth.updateSetting("filterType", action.payload);
 
       return dotProp.set(state, `filter.filterType`, action.payload);
+
+    case SAW_START:
+      synth.triggerSawStart();
+      return dotProp.set(state, "saw-start");
+
+    case TRIGGER_MASTER:
+      synth.triggerAttackRelease(action.payload, "8n");
+      return dotProp.set(state, "triggerMaster.note", action.payload);
 
     default:
       return state;

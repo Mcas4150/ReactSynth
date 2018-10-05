@@ -1,3 +1,5 @@
 export const CHANGE_DIAL = "CHANGE_DIAL";
 export const CHANGE_WAVEFORM = "CHANGE_WAVEFORM";
 export const CHANGE_FILTER_TYPE = "CHANGE_FILTER_TYPE";
+export const SAW_START = "SAW_START";
+export const TRIGGER_MASTER = "TRIGGER_MASTER";

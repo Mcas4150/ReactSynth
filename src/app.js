@@ -7,7 +7,7 @@ import "./app.css";
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <div className="app">
         <Provider store={store}>
           <Juno106Container />
         </Provider>

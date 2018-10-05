@@ -1,15 +1,30 @@
 import React from "react";
 import Tone from "tone";
 import "./keyboard.css";
+import { connect } from "react-redux";
+import { get } from "dot-prop-immutable";
+import { triggerMaster } from "../actions/actions";
 
 class Keyboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tone: ""
-    };
+    // this.state = {
+    //   tone: ""
+    // };
 
     this.notes = [
+      "C1",
+      "C#1",
+      "D1",
+      "D#1",
+      "E1",
+      "F1",
+      "F#1",
+      "G1",
+      "G#1",
+      "A1",
+      "A#1",
+      "B1",
       "C2",
       "C#2",
       "D2",
@@ -54,23 +69,24 @@ class Keyboard extends React.Component {
   }
 
   onKeyDown(e) {
-    let note = Tone.Frequency(e.keyCode, "midi").toNote();
-
-    for (let i = this.notes.length - 1; i >= 0; i--) {
-      if (this.notes[i] === note) {
-        this.props.onKeyDown(note);
-      }
-    }
+    // let note = Tone.Frequency(e.keyCode, "midi").toNote();
+    // for (let i = this.notes.length - 1; i >= 0; i--) {
+    //   if (this.notes[i] === note) {
+    //     this.props.onKeyDown(note);
+    //   }
+    // }
   }
 
-  handleMouseDown(e) {
-    this.props.onDown(e.target.dataset.value);
+  // handleMouseDown() {
+  //   this.props.triggerMaster("C2");
+  // }
 
-    console.log(e.target.dataset.value);
+  handleMouseDown(e) {
+    this.props.triggerMaster(e.target.dataset.value);
   }
 
   handleRelease() {
-    this.props.onUp("");
+    // this.props.onUp("");
   }
 
   render() {
@@ -106,4 +122,18 @@ class Keyboard extends React.Component {
   }
 }
 
-export default Keyboard;
+const mapStateToProps = (state, ownProps) => {
+  const _note = get(state, "triggerMaster.note");
+  return { note: _note === undefined ? "C3" : _note };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    triggerMaster: note => dispatch(triggerMaster(note))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Keyboard);

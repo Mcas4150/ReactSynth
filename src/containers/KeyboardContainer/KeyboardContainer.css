@@ -1,0 +1,15 @@
+.keyboard-container {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+  grid-template-areas: "keyboard-panel keyboard-keys";
+  height: 15vw;
+}
+
+.keyboard-panel {
+  grid-area: keyboard-panel;
+}
+
+.keyboard-keys {
+  grid-area: keyboard-keys;
+  background-color: antiquewhite;
+}

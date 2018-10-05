@@ -17,6 +17,7 @@ class SynthEngine {
     this.vcf = new Tone.Filter(20000, "lowpass");
     this.vca = new Tone.AmplitudeEnvelope(0.1, 0.2, 0.4, 0.2);
 
+    this.testSynth = new Tone.Synth().toMaster();
     this.sawOsc.chain(this.vcf, this.vca, this.masterBus);
 
     this.highpassFilterNode = new Tone.Filter(20, "highpass");
@@ -32,9 +33,17 @@ class SynthEngine {
     // this.initInitialSettings(initialState);
   }
 
-  // triggerAttackRelease(value, freq) {
+  triggerAttackRelease(value, freq) {
+    this.testSynth.triggerAttackRelease(value, freq);
+  }
+
+  //   triggerAttackRelease(value, freq) {
   //   this.polySynth.triggerAttackRelease(value, freq);
   // }
+
+  triggerSawStart() {
+    this.sawOsc.start();
+  }
 
   static get TOP_LEVEL_SETTINGS() {
     return ["chorus", "volume", "filterCutoff", "filterQ", "filterType"];

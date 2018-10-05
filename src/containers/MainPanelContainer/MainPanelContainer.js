@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./MainPanelContainer.css";
+import Envelope from "../../components/Envelope";
 
 export default class MainPanelContainer extends Component {
   render() {
@@ -16,7 +17,9 @@ export default class MainPanelContainer extends Component {
             <div className="hpf">HPF</div>
             <div className="vcf">VCF</div>
             <div className="vca">VCA</div>
-            <div className="env">ENV</div>
+            <div className="env">
+              <Envelope />
+            </div>
             <div className="chorus">CHORUS</div>
           </div>
           <div className="center-panel--bottom">Programs</div>

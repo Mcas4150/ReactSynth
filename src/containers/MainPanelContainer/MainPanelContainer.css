@@ -1,25 +1,26 @@
 .main-panel {
+  border-top: 1.5vw solid grey;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-areas: "left-panel center-panel right-panel";
   color: white;
-  height: 160px;
+  height: 16vw;
 }
 
 .left-panel {
   grid-area: left-panel;
-  border-top: 10px white solid;
+  border-top: 1vw white solid;
   border-right: 1px white solid;
 }
 
 .left-panel--top {
   border-bottom: 1px white solid;
-  height: 80px;
+  height: 7vw;
 }
 
 .left-panel--bottom {
   border-top: 1px white solid;
-  height: 80px;
+  height: 7vw;
 }
 
 .center-panel {
@@ -29,13 +30,13 @@
 .right-panel {
   grid-area: right-panel;
   border-left: 1px white solid;
-  border-top: 10px #2777c6 solid;
+  border-top: 1vw #2777c6 solid;
 }
 
 .right-panel--top {
   border-bottom: 1px #2777c6 solid;
   font-size: 32px;
-  height: 80px;
+  height: 7vw;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -43,8 +44,8 @@
 
 .right-panel--bottom {
   border-top: 1px #2777c6 solid;
-  font-size: 14px;
-  height: 80px;
+  font-size: 10px;
+  height: 8vw;
   display: flex;
   justify-content: center;
   align-self: flex-start;
@@ -63,12 +64,12 @@
 .vca,
 .env,
 .chorus {
-  border-top: 10px solid #ce3f40;
+  border-top: 1vw solid #ce3f40;
   border-bottom: 2px solid #ce3f40;
   border-right: 1px white solid;
   text-align: center;
   padding: 1px;
-  height: 90px;
+  height: 8vw;
 }
 
 .chorus {

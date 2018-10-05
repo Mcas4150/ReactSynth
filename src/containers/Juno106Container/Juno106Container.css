@@ -1,5 +1,8 @@
 .juno106 {
-  width: 992px;
-  height: 320px;
+  margin-top: 5vw;
+  width: 90vw;
+  height: 31vw;
   background-color: grey;
+  border-left: 3vw solid #505156;
+  border-right: 3vw solid #505156;
 }
