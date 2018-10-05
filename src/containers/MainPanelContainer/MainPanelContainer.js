@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./MainPanelContainer.css";
 import Envelope from "../../components/Envelope";
+import VoltageControlledFilter from "../../components/VoltageControlledFilter";
 
 export default class MainPanelContainer extends Component {
   render() {
@@ -15,7 +16,10 @@ export default class MainPanelContainer extends Component {
             <div className="lfo">LFO</div>
             <div className="dco">DCO</div>
             <div className="hpf">HPF</div>
-            <div className="vcf">VCF</div>
+            <div className="vcf">
+              VCF
+              <VoltageControlledFilter name={"filter"} displayName={"Filter"} />
+            </div>
             <div className="vca">VCA</div>
             <div className="env">
               <Envelope />
