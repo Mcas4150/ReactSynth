@@ -1,0 +1,25 @@
+.audio-unit {
+  border-style: dotted;
+  border-width: 0.1em;
+  margin: 1px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-content: center; */
+}
+
+.audio-unit h3 {
+  text-align: center;
+}
+
+.audio-unit-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.waveform,
+.analyzer {
+  height: 150px;
+  padding-left: 5px;
+  padding-right: 5px;
+}

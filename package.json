@@ -4,12 +4,16 @@
   "private": true,
   "dependencies": {
     "chromedriver": "^2.41.0",
+    "dot-prop-immutable": "^1.4.0",
     "geckodriver": "^1.12.2",
     "react": "^16.5.1",
-    "react-audio-tools": "0.0.15",
+    "react-browser-detection": "^1.2.0",
     "react-dom": "^16.5.1",
     "react-rangeslider": "^2.2.0",
+    "react-redux": "^5.0.7",
+    "react-rotary-knob": "^1.1.1",
     "react-scripts": "1.1.5",
+    "redux": "^4.0.0",
     "selenium-webdriver": "^4.0.0-alpha.1",
     "tone": "^0.12.80"
   },
