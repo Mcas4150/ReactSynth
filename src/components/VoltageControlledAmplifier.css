@@ -1,0 +1,6 @@
+.vca-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  font-size: 10px;
+  text-align: center;
+}

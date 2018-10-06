@@ -3,7 +3,11 @@ import Tone from "tone";
 import "./keyboard.css";
 import { connect } from "react-redux";
 import { get } from "dot-prop-immutable";
-import { triggerMaster } from "../actions/actions";
+import {
+  triggerMaster,
+  triggerAttack,
+  triggerRelease
+} from "../actions/actions";
 
 class Keyboard extends React.Component {
   constructor(props) {
@@ -64,6 +68,7 @@ class Keyboard extends React.Component {
     ];
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.handleRelease = this.handleRelease.bind(this);
   }
@@ -77,13 +82,21 @@ class Keyboard extends React.Component {
     // }
   }
 
-  // handleMouseDown() {
-  //   this.props.triggerMaster("C2");
+  // getFrequency(note){
+  //   this.notes,
   // }
 
   handleMouseDown(e) {
-    this.props.triggerMaster(e.target.dataset.value);
+    this.props.triggerAttack(e.target.dataset.value);
   }
+
+  handleMouseUp() {
+    this.props.triggerRelease();
+  }
+
+  // handleMouseDown(e) {
+  //   this.props.triggerMaster(e.target.dataset.value);
+  // }
 
   handleRelease() {
     // this.props.onUp("");
@@ -100,7 +113,7 @@ class Keyboard extends React.Component {
             onKeyDown={this.onKeyDown}
             onKeyUp={this.handleRelease}
             onMouseDown={this.handleMouseDown}
-            onMouseUp={this.handleRelease}
+            onMouseUp={this.handleMouseUp}
           />
         );
       } else {
@@ -112,7 +125,7 @@ class Keyboard extends React.Component {
             onKeyDown={this.onKeyDown}
             onKeyUp={this.handleRelease}
             onMouseDown={this.handleMouseDown}
-            onMouseUp={this.handleRelease}
+            onMouseUp={this.handleMouseUp}
           />
         );
       }
@@ -123,13 +136,16 @@ class Keyboard extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const _note = get(state, "triggerMaster.note");
+  const _note = get(state, "triggerAttack.note");
+  // const _note = get(state, "triggerMaster.note");
   return { note: _note === undefined ? "C3" : _note };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    triggerMaster: note => dispatch(triggerMaster(note))
+    triggerAttack: note => dispatch(triggerAttack(note)),
+    triggerRelease: () => dispatch(triggerRelease())
+    // triggerMaster: note => dispatch(triggerMaster(note))
   };
 };
 

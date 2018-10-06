@@ -39,7 +39,7 @@ class SettingSlider extends Component {
           onChange={this.handleChange}
           min={this.minValue}
           max={this.maxValue}
-          step={0.5}
+          step={this.props.step}
         />
         <label className="dial-name">{this.props.displayName}</label>
       </div>

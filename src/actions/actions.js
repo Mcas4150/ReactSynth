@@ -3,7 +3,9 @@ import {
   CHANGE_WAVEFORM,
   CHANGE_FILTER_TYPE,
   SAW_START,
-  TRIGGER_MASTER
+  TRIGGER_MASTER,
+  TRIGGER_ATTACK,
+  TRIGGER_RELEASE
 } from "./action-types";
 
 export const changeDial = dial => {
@@ -27,9 +29,10 @@ export const changeFilterType = val => {
   };
 };
 
-export const sawStart = () => {
+export const sawStart = note => {
   return {
-    type: SAW_START
+    type: SAW_START,
+    payload: note
   };
 };
 
@@ -37,5 +40,19 @@ export const triggerMaster = note => {
   return {
     type: TRIGGER_MASTER,
     payload: note
+  };
+};
+
+export const triggerAttack = note => {
+  return {
+    type: TRIGGER_ATTACK,
+    payload: note
+  };
+};
+
+export const triggerRelease = () => {
+  return {
+    type: TRIGGER_ATTACK,
+    payload: {}
   };
 };

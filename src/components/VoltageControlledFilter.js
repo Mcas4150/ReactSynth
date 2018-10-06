@@ -17,13 +17,15 @@ export default class VoltageControlledFilter extends Component {
           parentName={this.props.name}
           min={20}
           max={20000}
+          step={100}
         />
         <SettingSlider
           name={"filterQ"}
           displayName={"RES"}
           parentName={this.props.name}
           min={0}
-          max={20}
+          max={40}
+          step={1}
         />
       </div>
     );
