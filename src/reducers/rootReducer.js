@@ -54,7 +54,7 @@ const rootReducer = (state = initialState, action) => {
 
     case TRIGGER_RELEASE:
       synth.triggerRelease();
-      return state;
+      return dotProp.set(state, "triggerRelease.note", action.payload);
 
     default:
       return state;

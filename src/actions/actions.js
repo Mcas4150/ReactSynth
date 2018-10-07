@@ -50,9 +50,9 @@ export const triggerAttack = note => {
   };
 };
 
-export const triggerRelease = () => {
+export const triggerRelease = note => {
   return {
-    type: TRIGGER_ATTACK,
-    payload: {}
+    type: TRIGGER_RELEASE,
+    payload: note
   };
 };

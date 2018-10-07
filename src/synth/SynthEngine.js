@@ -89,7 +89,7 @@ class SynthEngine {
 
   triggerAttack(note) {
     // this.noteFrequency = noteToFrequency(note);
-    this.env.triggerAttackRelease(this.env.sustain);
+    this.env.triggerAttack();
   }
 
   // triggerAttack(note) {
@@ -141,6 +141,22 @@ class SynthEngine {
 
   highpassFilterCutoff(val) {
     this.highpassFilterNode.frequency.value = val;
+  }
+
+  envelopeAttack(val) {
+    this.env.attack = val;
+  }
+
+  envelopeDecay(val) {
+    this.env.decay = val;
+  }
+
+  envelopeSustain(val) {
+    this.env.sustain = val;
+  }
+
+  envelopeRelease(val) {
+    this.env.release = val;
   }
 }
 

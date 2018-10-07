@@ -90,8 +90,8 @@ class Keyboard extends React.Component {
     this.props.triggerAttack(e.target.dataset.value);
   }
 
-  handleMouseUp() {
-    this.props.triggerRelease();
+  handleMouseUp(e) {
+    this.props.triggerRelease(e.target.dataset.value);
   }
 
   // handleMouseDown(e) {
@@ -144,7 +144,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     triggerAttack: note => dispatch(triggerAttack(note)),
-    triggerRelease: () => dispatch(triggerRelease())
+    triggerRelease: note => dispatch(triggerRelease(note))
     // triggerMaster: note => dispatch(triggerMaster(note))
   };
 };
