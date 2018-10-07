@@ -12,12 +12,12 @@ export default class VoltageControlledAmplifier extends Component {
     return (
       <div className="vca-grid">
         <SettingSlider
-          name={"vcaGain"}
+          name={"vcaLevel"}
           displayName={"LEV"}
           parentName={this.props.name}
-          min={20}
-          max={20000}
-          step={100}
+          min={0}
+          max={1}
+          step={0.1}
         />
       </div>
     );

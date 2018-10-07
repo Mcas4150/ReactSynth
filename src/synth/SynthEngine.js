@@ -1,8 +1,9 @@
 import Tone from "tone";
+import noteToFrequency from "note-to-frequency";
 
 class SynthEngine {
   constructor(initialState) {
-    this.noteFrequency = 440;
+    this.noteFrequency = "440";
 
     this.limiter = new Tone.Limiter(-10);
     this.chorus = new Tone.Chorus(4, 2.5, 0.5);
@@ -16,7 +17,10 @@ class SynthEngine {
     this.vcf = new Tone.Filter(10000, "lowpass", -24);
     this.env = new Tone.AmplitudeEnvelope(0.1, 0.2, 0.4, 0.2);
     this.vca = new Tone.Gain(1);
-    this.sawOsc = new Tone.Oscillator(this.noteFrequency, "sawtooth").start();
+    this.sawOsc = new Tone.Oscillator(
+      noteToFrequency("A3"),
+      "sawtooth"
+    ).start();
     this.pulseOsc = new Tone.PulseOscillator(440, 0.4).start();
     this.subOsc = new Tone.Oscillator(110, "sawtooth").start();
     this.noiseOsc = new Tone.NoiseSynth();
@@ -40,6 +44,7 @@ class SynthEngine {
 
     // this.createOscillatorSettingCallbacks();
     // this.initInitialSettings(initialState);
+    // this.noteToFrequency = this.noteToFrequency.bind(this);
   }
 
   // getFrequencyFromNote(note) {
@@ -83,7 +88,7 @@ class SynthEngine {
   }
 
   triggerAttack(note) {
-    // this.noteFrequency = this.getFrequencyFromNote(note);
+    // this.noteFrequency = noteToFrequency(note);
     this.env.triggerAttackRelease(this.env.sustain);
   }
 
@@ -111,6 +116,10 @@ class SynthEngine {
     } else {
       this[name](val);
     }
+  }
+
+  vcaLevel(val) {
+    this.vca.gain.value = val;
   }
 
   chorus(val) {

@@ -6,6 +6,7 @@
     "chromedriver": "^2.41.0",
     "dot-prop-immutable": "^1.4.0",
     "geckodriver": "^1.12.2",
+    "note-to-frequency": "^1.4.1",
     "rc-slider": "^8.6.3",
     "react": "^16.5.1",
     "react-browser-detection": "^1.2.0",
